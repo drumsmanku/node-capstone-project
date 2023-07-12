@@ -14,6 +14,12 @@ app.use(bodyParser.urlencoded({ extended:true }));
 app.use(express.static('./public'));
 app.use(cors());
 
+app.get('/', (req, res)=>{
+  res.send({message:'working perfectly'})
+})
+
 app.listen(process.env.PORT, ()=>{
-  console.log('listening on port '+process.env.PORT)
+  mongoose.connect(process.env.MONGO_URL).then(()=>{
+    console.log('listening on port ' + process.env.PORT)
+  }).catch(err=>console.log(err))
 })
